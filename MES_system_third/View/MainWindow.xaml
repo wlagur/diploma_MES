@@ -1,0 +1,468 @@
+﻿<Window x:Class="MES_system_third.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="MES"
+        Width="1350"
+        Height="600">
+    <Grid>
+
+        <Menu Background="White" IsMainMenu="True">
+            <MenuItem Header="_Файл">
+                <MenuItem Header="_Сохранить" />
+                <MenuItem Header="_Выйти" />
+            </MenuItem>
+            <MenuItem Header="_Помощь">
+                <MenuItem Header="_Справка" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl>
+            <TabItem Header="Заказы">
+                <Grid>
+                    <ListBox Width="150"
+                             Height="185"
+                             Margin="10,10,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             DisplayMemberPath="Name"
+                             FontSize="9"
+                             ItemsSource="{Binding Path=ListOfOrders}"
+                             SelectedItem="{Binding SelectedOrder,
+                                                    Mode=TwoWay}" />
+                    <RadioButton Margin="640,160,558,356" IsChecked="{Binding Path=flag, Mode=TwoWay}" />
+                    <RadioButton Margin="640,130,539,386"
+                                 Content="Windows XP"
+                                 GroupName="Os"
+                                 IsChecked="{Binding Path=flag,
+                                                     Mode=TwoWay}" />
+                    <RadioButton Margin="640,100,558,416"
+                                 Content="Windows Vista"
+                                 GroupName="Os" />
+                    <RadioButton Margin="640,70,555,446"
+                                 Content="Windows 7"
+                                 GroupName="Os" />
+                    <DatePickerTextBox Margin="270,10,916,506" RenderTransformOrigin="0.267,0.36" />
+                    <ComboBox Width="150"
+                              Height="25"
+                              Margin="270,40,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              DisplayMemberPath="FullName"
+                              ItemsSource="{Binding Path=ListOfWorkers}" />
+                    <Label Width="100"
+                           Height="25"
+                           Margin="165,10,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="Дата и время" />
+                    <Label Width="100"
+                           Height="25"
+                           Margin="165,40,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="Рабочий"
+                           RenderTransformOrigin="0.53,0.56" />
+
+                    <Grid IsEnabled="{Binding Path=flag}">
+                        <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,10,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.vincod,
+                                                Mode=TwoWay}" />
+                        <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,40,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.vincod,
+                                                Mode=TwoWay}" />
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,70,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,100,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,130,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,160,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="VIN-код" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,40,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Номер" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,70,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Марка" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,100,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Модель" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,130,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Цвет" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,160,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Клиент" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Планирование">
+                <Grid>
+                    <ListBox Width="150"
+                             Height="185"
+                             Margin="10,10,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             DisplayMemberPath="Name"
+                             FontSize="9"
+                             ItemsSource="{Binding Path=ListOfOrders}"
+                             SelectedItem="{Binding SelectedOrder,
+                                                    Mode=TwoWay}" />
+
+                    <Button Width="150"
+                            Height="25"
+                            Margin="10,260,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            BorderBrush="{Binding ColorButtonSave}"
+                            Command="{Binding SaveCommand}"
+                            Content="Сохранить" />
+                    <Button Width="150"
+                            Height="25"
+                            Margin="10,230,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding AddProcessCommand}"
+                            Content="Добавить процес">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CommandColorButtonSave}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Width="150"
+                            Height="25"
+                            Margin="10,200,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding DeleteProcessCommand}"
+                            Content="Удалить процес">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CommandColorButtonSave}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+
+                    <ListView Width="820"
+                              Height="275"
+                              Margin="165,10,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              ItemsSource="{Binding Path=ListOfProcesses}"
+                              SelectedItem="{Binding Path=SelectedProcess,
+                                                     Mode=TwoWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="{Binding Path=operation.ColorBrush}" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Операция">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="170"
+                                                          DisplayMemberPath="nameOperation"
+                                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                Path=DataContext.ListOfOperations}"
+                                                          SelectedItem="{Binding Path=operation,
+                                                                                 Mode=TwoWay}">
+                                                    <ComboBox.Background>
+                                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
+                                                    </ComboBox.Background>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Деталь">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="150"
+                                                          ItemsSource="{Binding Path=ListProcess_has_detail}"
+                                                          SelectedItem="{Binding Path=detail,
+                                                                                 Mode=TwoWay}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox IsChecked="{Binding FlagProcess_has_detail}" />
+                                                                <TextBlock Text="{Binding Path=detail.standartdetail.nameStandartDetail}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Начало">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DatePickerTextBox Width="130"
+                                                               Background="{Binding Path=operation.ColorBrush}"
+                                                               Text="{Binding Path=dateTimeStart,
+                                                                              Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DatePickerTextBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Конец">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DatePickerTextBox Width="130"
+                                                               Background="{Binding Path=operation.ColorBrush}"
+                                                               Text="{Binding Path=dateTimeFinish,
+                                                                              Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DatePickerTextBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Рабочий">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="170"
+                                                          DisplayMemberPath="FullName"
+                                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                Path=DataContext.ListOfWorkers}"
+                                                          SelectedItem="{Binding Path=worker,
+                                                                                 Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandChangeWokerInProcess}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListBox Width="150"
+                             Margin="10,290,0,10"
+                             HorizontalAlignment="Left"
+                             DisplayMemberPath="FullName"
+                             FontSize="9"
+                             ItemsSource="{Binding Path=ListOfWorkers}"
+                             SelectedItem="{Binding SelectedWorker,
+                                                    Mode=TwoWay}" />
+
+                    <ListView Margin="165,290,10,10" ItemsSource="{Binding Path=ListOfLoadingWorker}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="{Binding Path=operation.ColorBrush}" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Операция">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="170"
+                                                          DisplayMemberPath="nameOperation"
+                                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                Path=DataContext.ListOfOperations}"
+                                                          SelectedItem="{Binding Path=operation,
+                                                                                 Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Деталь">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="150"
+                                                          ItemsSource="{Binding Path=ListProcess_has_detail}"
+                                                          SelectedItem="{Binding Path=detail,
+                                                                                 Mode=TwoWay}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox IsChecked="{Binding FlagProcess_has_detail}" />
+                                                                <TextBlock Text="{Binding Path=detail.standartdetail.nameStandartDetail}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Начало">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DatePickerTextBox Width="130"
+                                                               Background="{Binding Path=operation.ColorBrush}"
+                                                               Text="{Binding Path=dateTimeStart,
+                                                                              Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DatePickerTextBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Конец">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DatePickerTextBox Width="130"
+                                                               Background="{Binding Path=operation.ColorBrush}"
+                                                               Text="{Binding Path=dateTimeFinish,
+                                                                              Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DatePickerTextBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Рабочий">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox Width="170"
+                                                          DisplayMemberPath="FullName"
+                                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                Path=DataContext.ListOfWorkers}"
+                                                          SelectedItem="{Binding Path=worker,
+                                                                                 Mode=TwoWay}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
+                                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandChangeWokerInProcess}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ScrollViewer Height="275"
+                                  Margin="990,10,10,0"
+                                  VerticalAlignment="Top"
+                                  HorizontalScrollBarVisibility="Visible"
+                                  VerticalScrollBarVisibility="Visible">
+                        <ItemsControl Width="700"
+                                      Height="275"
+                                      ItemsSource="{Binding Path=ListOfRectanglesOrder}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Background="#FFF6F8FB" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                                    <Setter Property="Canvas.Top" Value="{Binding Path=(Y)}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Rectangle Width="{Binding Path=Width}"
+                                                   Height="24"
+                                                   Fill="{Binding Path=Color}" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Foreground="Black"
+                                                   Text="{Binding Path=DuringString}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

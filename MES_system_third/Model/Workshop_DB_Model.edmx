@@ -1,0 +1,978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="workshopModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="workshopModelStoreContainer">
+          <EntitySet Name="car" EntityType="workshopModel.Store.car" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="client" EntityType="workshopModel.Store.client" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="colorofcar" EntityType="workshopModel.Store.colorofcar" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="detail" EntityType="workshopModel.Store.detail" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="markofcar" EntityType="workshopModel.Store.markofcar" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="modelofcar" EntityType="workshopModel.Store.modelofcar" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="operation" EntityType="workshopModel.Store.operation" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="order" EntityType="workshopModel.Store.order" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="photo" EntityType="workshopModel.Store.photo" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="process" EntityType="workshopModel.Store.process" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="skill" EntityType="workshopModel.Store.skill" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="standartdetail" EntityType="workshopModel.Store.standartdetail" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="worker" EntityType="workshopModel.Store.worker" store:Type="Tables" Schema="workshop" />
+          <EntitySet Name="workerhasskill" EntityType="workshopModel.Store.workerhasskill" store:Type="Tables" Schema="workshop" />
+          <AssociationSet Name="fk_Car_Client1" Association="workshopModel.Store.fk_Car_Client1">
+            <End Role="client" EntitySet="client" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Car_ColorOfCar1" Association="workshopModel.Store.fk_Car_ColorOfCar1">
+            <End Role="colorofcar" EntitySet="colorofcar" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Car_ModelOfCar1" Association="workshopModel.Store.fk_Car_ModelOfCar1">
+            <End Role="modelofcar" EntitySet="modelofcar" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Detail_Car1" Association="workshopModel.Store.fk_Detail_Car1">
+            <End Role="car" EntitySet="car" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Detail_StandartDetail1" Association="workshopModel.Store.fk_Detail_StandartDetail1">
+            <End Role="standartdetail" EntitySet="standartdetail" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ModelOfCar_MarkOfCar1" Association="workshopModel.Store.fk_ModelOfCar_MarkOfCar1">
+            <End Role="markofcar" EntitySet="markofcar" />
+            <End Role="modelofcar" EntitySet="modelofcar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Car1" Association="workshopModel.Store.fk_Order_Car1">
+            <End Role="car" EntitySet="car" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Worker1" Association="workshopModel.Store.fk_Order_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Photo_Order1" Association="workshopModel.Store.fk_Photo_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="photo" EntitySet="photo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Detail1" Association="workshopModel.Store.fk_Process_Detail1">
+            <End Role="detail" EntitySet="detail" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Operation1" Association="workshopModel.Store.fk_Process_Operation1">
+            <End Role="operation" EntitySet="operation" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Order1" Association="workshopModel.Store.fk_Process_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Worker1" Association="workshopModel.Store.fk_Process_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkerHasSkill_Skill" Association="workshopModel.Store.fk_WorkerHasSkill_Skill">
+            <End Role="skill" EntitySet="skill" />
+            <End Role="workerhasskill" EntitySet="workerhasskill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkerHasSkill_Worker1" Association="workshopModel.Store.fk_WorkerHasSkill_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="workerhasskill" EntitySet="workerhasskill" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="idCar" />
+          </Key>
+          <Property Name="idCar" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="vincod" Type="varchar" MaxLength="45" />
+          <Property Name="registrNumber" Type="varchar" MaxLength="45" />
+          <Property Name="ModelOfCar_idModelOfCar" Type="int" Nullable="false" />
+          <Property Name="ColorOfCar_idColorOfCar" Type="int" Nullable="false" />
+          <Property Name="Client_idClient" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="varchar" MaxLength="45" />
+          <Property Name="middleName" Type="varchar" MaxLength="45" />
+          <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="phone" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="colorofcar">
+          <Key>
+            <PropertyRef Name="idColorOfCar" />
+          </Key>
+          <Property Name="idColorOfCar" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameColorOfCar" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="detail">
+          <Key>
+            <PropertyRef Name="idDetail" />
+          </Key>
+          <Property Name="idDetail" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StandartDetail_idStandartDetail" Type="int" Nullable="false" />
+          <Property Name="Car_idCar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="markofcar">
+          <Key>
+            <PropertyRef Name="idMarkOfCar" />
+          </Key>
+          <Property Name="idMarkOfCar" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameMarkOfCar" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="modelofcar">
+          <Key>
+            <PropertyRef Name="idModelOfCar" />
+          </Key>
+          <Property Name="idModelOfCar" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameModelOfCar" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="MarkOfCar_idMarkOfCar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="operation">
+          <Key>
+            <PropertyRef Name="idOperation" />
+          </Key>
+          <Property Name="idOperation" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameOperation" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="duration" Type="time" />
+          <Property Name="Color" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="idOrder" />
+          </Key>
+          <Property Name="idOrder" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="dateTime" Type="datetime" />
+          <Property Name="status" Type="bool" />
+          <Property Name="Worker_idWorker" Type="int" Nullable="false" />
+          <Property Name="Car_idCar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="photo">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="image" Type="blob" />
+          <Property Name="notes" Type="varchar" MaxLength="100" />
+          <Property Name="dateTime" Type="datetime" />
+          <Property Name="Order_idOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="process">
+          <Key>
+            <PropertyRef Name="idProcess" />
+          </Key>
+          <Property Name="idProcess" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="dateTimeStart" Type="datetime" />
+          <Property Name="dateTimeFinish" Type="datetime" />
+          <Property Name="dateTimeStartFact" Type="datetime" />
+          <Property Name="dateTimeFinishFact" Type="datetime" />
+          <Property Name="Detail_idDetail" Type="int" Nullable="false" />
+          <Property Name="Worker_idWorker" Type="int" Nullable="false" />
+          <Property Name="Operation_idOperation" Type="int" Nullable="false" />
+          <Property Name="Order_idOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="idSkill" />
+          </Key>
+          <Property Name="idSkill" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameSkill" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="standartdetail">
+          <Key>
+            <PropertyRef Name="idStandartDetail" />
+          </Key>
+          <Property Name="idStandartDetail" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nameStandartDetail" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="idWorker" />
+          </Key>
+          <Property Name="idWorker" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="varchar" MaxLength="45" />
+          <Property Name="middleName" Type="varchar" MaxLength="45" />
+          <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="workerhasskill">
+          <Key>
+            <PropertyRef Name="idWorkerHasSkill" />
+          </Key>
+          <Property Name="idWorkerHasSkill" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="level" Type="int" />
+          <Property Name="Skill_idSkill" Type="int" Nullable="false" />
+          <Property Name="Worker_idWorker" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Car_Client1">
+          <End Role="client" Type="workshopModel.Store.client" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.Store.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="Client_idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Car_ColorOfCar1">
+          <End Role="colorofcar" Type="workshopModel.Store.colorofcar" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.Store.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colorofcar">
+              <PropertyRef Name="idColorOfCar" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="ColorOfCar_idColorOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Car_ModelOfCar1">
+          <End Role="modelofcar" Type="workshopModel.Store.modelofcar" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.Store.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modelofcar">
+              <PropertyRef Name="idModelOfCar" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="ModelOfCar_idModelOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Detail_Car1">
+          <End Role="car" Type="workshopModel.Store.car" Multiplicity="1" />
+          <End Role="detail" Type="workshopModel.Store.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="idCar" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="Car_idCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Detail_StandartDetail1">
+          <End Role="standartdetail" Type="workshopModel.Store.standartdetail" Multiplicity="1" />
+          <End Role="detail" Type="workshopModel.Store.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="standartdetail">
+              <PropertyRef Name="idStandartDetail" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="StandartDetail_idStandartDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ModelOfCar_MarkOfCar1">
+          <End Role="markofcar" Type="workshopModel.Store.markofcar" Multiplicity="1" />
+          <End Role="modelofcar" Type="workshopModel.Store.modelofcar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="markofcar">
+              <PropertyRef Name="idMarkOfCar" />
+            </Principal>
+            <Dependent Role="modelofcar">
+              <PropertyRef Name="MarkOfCar_idMarkOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Car1">
+          <End Role="car" Type="workshopModel.Store.car" Multiplicity="1" />
+          <End Role="order" Type="workshopModel.Store.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="idCar" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="Car_idCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Worker1">
+          <End Role="worker" Type="workshopModel.Store.worker" Multiplicity="1" />
+          <End Role="order" Type="workshopModel.Store.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Photo_Order1">
+          <End Role="order" Type="workshopModel.Store.order" Multiplicity="1" />
+          <End Role="photo" Type="workshopModel.Store.photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="photo">
+              <PropertyRef Name="Order_idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Detail1">
+          <End Role="detail" Type="workshopModel.Store.detail" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.Store.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="detail">
+              <PropertyRef Name="idDetail" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Detail_idDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Operation1">
+          <End Role="operation" Type="workshopModel.Store.operation" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.Store.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operation">
+              <PropertyRef Name="idOperation" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Operation_idOperation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Order1">
+          <End Role="order" Type="workshopModel.Store.order" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.Store.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Order_idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Worker1">
+          <End Role="worker" Type="workshopModel.Store.worker" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.Store.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkerHasSkill_Skill">
+          <End Role="skill" Type="workshopModel.Store.skill" Multiplicity="1" />
+          <End Role="workerhasskill" Type="workshopModel.Store.workerhasskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skill">
+              <PropertyRef Name="idSkill" />
+            </Principal>
+            <Dependent Role="workerhasskill">
+              <PropertyRef Name="Skill_idSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkerHasSkill_Worker1">
+          <End Role="worker" Type="workshopModel.Store.worker" Multiplicity="1" />
+          <End Role="workerhasskill" Type="workshopModel.Store.workerhasskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="workerhasskill">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="workshopModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="workshopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="car" EntityType="workshopModel.car" />
+          <EntitySet Name="client" EntityType="workshopModel.client" />
+          <EntitySet Name="colorofcar" EntityType="workshopModel.colorofcar" />
+          <EntitySet Name="detail" EntityType="workshopModel.detail" />
+          <EntitySet Name="markofcar" EntityType="workshopModel.markofcar" />
+          <EntitySet Name="modelofcar" EntityType="workshopModel.modelofcar" />
+          <EntitySet Name="operation" EntityType="workshopModel.operation" />
+          <EntitySet Name="order" EntityType="workshopModel.order" />
+          <EntitySet Name="photo" EntityType="workshopModel.photo" />
+          <EntitySet Name="process" EntityType="workshopModel.process" />
+          <EntitySet Name="skill" EntityType="workshopModel.skill" />
+          <EntitySet Name="standartdetail" EntityType="workshopModel.standartdetail" />
+          <EntitySet Name="worker" EntityType="workshopModel.worker" />
+          <EntitySet Name="workerhasskill" EntityType="workshopModel.workerhasskill" />
+          <AssociationSet Name="fk_Car_Client1" Association="workshopModel.fk_Car_Client1">
+            <End Role="client" EntitySet="client" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Car_ColorOfCar1" Association="workshopModel.fk_Car_ColorOfCar1">
+            <End Role="colorofcar" EntitySet="colorofcar" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Car_ModelOfCar1" Association="workshopModel.fk_Car_ModelOfCar1">
+            <End Role="modelofcar" EntitySet="modelofcar" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Detail_Car1" Association="workshopModel.fk_Detail_Car1">
+            <End Role="car" EntitySet="car" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Car1" Association="workshopModel.fk_Order_Car1">
+            <End Role="car" EntitySet="car" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Detail_StandartDetail1" Association="workshopModel.fk_Detail_StandartDetail1">
+            <End Role="standartdetail" EntitySet="standartdetail" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Detail1" Association="workshopModel.fk_Process_Detail1">
+            <End Role="detail" EntitySet="detail" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ModelOfCar_MarkOfCar1" Association="workshopModel.fk_ModelOfCar_MarkOfCar1">
+            <End Role="markofcar" EntitySet="markofcar" />
+            <End Role="modelofcar" EntitySet="modelofcar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Operation1" Association="workshopModel.fk_Process_Operation1">
+            <End Role="operation" EntitySet="operation" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Order_Worker1" Association="workshopModel.fk_Order_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Photo_Order1" Association="workshopModel.fk_Photo_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="photo" EntitySet="photo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Order1" Association="workshopModel.fk_Process_Order1">
+            <End Role="order" EntitySet="order" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Process_Worker1" Association="workshopModel.fk_Process_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="process" EntitySet="process" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkerHasSkill_Skill" Association="workshopModel.fk_WorkerHasSkill_Skill">
+            <End Role="skill" EntitySet="skill" />
+            <End Role="workerhasskill" EntitySet="workerhasskill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkerHasSkill_Worker1" Association="workshopModel.fk_WorkerHasSkill_Worker1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="workerhasskill" EntitySet="workerhasskill" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="idCar" />
+          </Key>
+          <Property Name="idCar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vincod" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="registrNumber" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ModelOfCar_idModelOfCar" Type="Int32" Nullable="false" />
+          <Property Name="ColorOfCar_idColorOfCar" Type="Int32" Nullable="false" />
+          <Property Name="Client_idClient" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="workshopModel.fk_Car_Client1" FromRole="car" ToRole="client" />
+          <NavigationProperty Name="colorofcar" Relationship="workshopModel.fk_Car_ColorOfCar1" FromRole="car" ToRole="colorofcar" />
+          <NavigationProperty Name="modelofcar" Relationship="workshopModel.fk_Car_ModelOfCar1" FromRole="car" ToRole="modelofcar" />
+          <NavigationProperty Name="detail" Relationship="workshopModel.fk_Detail_Car1" FromRole="car" ToRole="detail" />
+          <NavigationProperty Name="order" Relationship="workshopModel.fk_Order_Car1" FromRole="car" ToRole="order" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="middleName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="phone" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="car" Relationship="workshopModel.fk_Car_Client1" FromRole="client" ToRole="car" />
+        </EntityType>
+        <EntityType Name="colorofcar">
+          <Key>
+            <PropertyRef Name="idColorOfCar" />
+          </Key>
+          <Property Name="idColorOfCar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameColorOfCar" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="car" Relationship="workshopModel.fk_Car_ColorOfCar1" FromRole="colorofcar" ToRole="car" />
+        </EntityType>
+        <EntityType Name="detail">
+          <Key>
+            <PropertyRef Name="idDetail" />
+          </Key>
+          <Property Name="idDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StandartDetail_idStandartDetail" Type="Int32" Nullable="false" />
+          <Property Name="Car_idCar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="car" Relationship="workshopModel.fk_Detail_Car1" FromRole="detail" ToRole="car" />
+          <NavigationProperty Name="standartdetail" Relationship="workshopModel.fk_Detail_StandartDetail1" FromRole="detail" ToRole="standartdetail" />
+          <NavigationProperty Name="process" Relationship="workshopModel.fk_Process_Detail1" FromRole="detail" ToRole="process" />
+        </EntityType>
+        <EntityType Name="markofcar">
+          <Key>
+            <PropertyRef Name="idMarkOfCar" />
+          </Key>
+          <Property Name="idMarkOfCar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameMarkOfCar" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="modelofcar" Relationship="workshopModel.fk_ModelOfCar_MarkOfCar1" FromRole="markofcar" ToRole="modelofcar" />
+        </EntityType>
+        <EntityType Name="modelofcar">
+          <Key>
+            <PropertyRef Name="idModelOfCar" />
+          </Key>
+          <Property Name="idModelOfCar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameModelOfCar" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="MarkOfCar_idMarkOfCar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="car" Relationship="workshopModel.fk_Car_ModelOfCar1" FromRole="modelofcar" ToRole="car" />
+          <NavigationProperty Name="markofcar" Relationship="workshopModel.fk_ModelOfCar_MarkOfCar1" FromRole="modelofcar" ToRole="markofcar" />
+        </EntityType>
+        <EntityType Name="operation">
+          <Key>
+            <PropertyRef Name="idOperation" />
+          </Key>
+          <Property Name="idOperation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameOperation" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="duration" Type="Time" Precision="0" />
+          <Property Name="Color" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="process" Relationship="workshopModel.fk_Process_Operation1" FromRole="operation" ToRole="process" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="idOrder" />
+          </Key>
+          <Property Name="idOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateTime" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="Worker_idWorker" Type="Int32" Nullable="false" />
+          <Property Name="Car_idCar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="car" Relationship="workshopModel.fk_Order_Car1" FromRole="order" ToRole="car" />
+          <NavigationProperty Name="worker" Relationship="workshopModel.fk_Order_Worker1" FromRole="order" ToRole="worker" />
+          <NavigationProperty Name="photo" Relationship="workshopModel.fk_Photo_Order1" FromRole="order" ToRole="photo" />
+          <NavigationProperty Name="process" Relationship="workshopModel.fk_Process_Order1" FromRole="order" ToRole="process" />
+        </EntityType>
+        <EntityType Name="photo">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image" Type="Binary" MaxLength="65535" FixedLength="false" />
+          <Property Name="notes" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="dateTime" Type="DateTime" Precision="0" />
+          <Property Name="Order_idOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="workshopModel.fk_Photo_Order1" FromRole="photo" ToRole="order" />
+        </EntityType>
+        <EntityType Name="process">
+          <Key>
+            <PropertyRef Name="idProcess" />
+          </Key>
+          <Property Name="idProcess" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateTimeStart" Type="DateTime" Precision="0" />
+          <Property Name="dateTimeFinish" Type="DateTime" Precision="0" />
+          <Property Name="dateTimeStartFact" Type="DateTime" Precision="0" />
+          <Property Name="dateTimeFinishFact" Type="DateTime" Precision="0" />
+          <Property Name="Detail_idDetail" Type="Int32" Nullable="false" />
+          <Property Name="Worker_idWorker" Type="Int32" Nullable="false" />
+          <Property Name="Operation_idOperation" Type="Int32" Nullable="false" />
+          <Property Name="Order_idOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="detail" Relationship="workshopModel.fk_Process_Detail1" FromRole="process" ToRole="detail" />
+          <NavigationProperty Name="operation" Relationship="workshopModel.fk_Process_Operation1" FromRole="process" ToRole="operation" />
+          <NavigationProperty Name="order" Relationship="workshopModel.fk_Process_Order1" FromRole="process" ToRole="order" />
+          <NavigationProperty Name="worker" Relationship="workshopModel.fk_Process_Worker1" FromRole="process" ToRole="worker" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="idSkill" />
+          </Key>
+          <Property Name="idSkill" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameSkill" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="workerhasskill" Relationship="workshopModel.fk_WorkerHasSkill_Skill" FromRole="skill" ToRole="workerhasskill" />
+        </EntityType>
+        <EntityType Name="standartdetail">
+          <Key>
+            <PropertyRef Name="idStandartDetail" />
+          </Key>
+          <Property Name="idStandartDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameStandartDetail" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="detail" Relationship="workshopModel.fk_Detail_StandartDetail1" FromRole="standartdetail" ToRole="detail" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="idWorker" />
+          </Key>
+          <Property Name="idWorker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="middleName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="order" Relationship="workshopModel.fk_Order_Worker1" FromRole="worker" ToRole="order" />
+          <NavigationProperty Name="process" Relationship="workshopModel.fk_Process_Worker1" FromRole="worker" ToRole="process" />
+          <NavigationProperty Name="workerhasskill" Relationship="workshopModel.fk_WorkerHasSkill_Worker1" FromRole="worker" ToRole="workerhasskill" />
+        </EntityType>
+        <EntityType Name="workerhasskill">
+          <Key>
+            <PropertyRef Name="idWorkerHasSkill" />
+          </Key>
+          <Property Name="idWorkerHasSkill" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="level" Type="Int32" />
+          <Property Name="Skill_idSkill" Type="Int32" Nullable="false" />
+          <Property Name="Worker_idWorker" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="skill" Relationship="workshopModel.fk_WorkerHasSkill_Skill" FromRole="workerhasskill" ToRole="skill" />
+          <NavigationProperty Name="worker" Relationship="workshopModel.fk_WorkerHasSkill_Worker1" FromRole="workerhasskill" ToRole="worker" />
+        </EntityType>
+        <Association Name="fk_Car_Client1">
+          <End Role="client" Type="workshopModel.client" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="Client_idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Car_ColorOfCar1">
+          <End Role="colorofcar" Type="workshopModel.colorofcar" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colorofcar">
+              <PropertyRef Name="idColorOfCar" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="ColorOfCar_idColorOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Car_ModelOfCar1">
+          <End Role="modelofcar" Type="workshopModel.modelofcar" Multiplicity="1" />
+          <End Role="car" Type="workshopModel.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modelofcar">
+              <PropertyRef Name="idModelOfCar" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="ModelOfCar_idModelOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Detail_Car1">
+          <End Role="car" Type="workshopModel.car" Multiplicity="1" />
+          <End Role="detail" Type="workshopModel.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="idCar" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="Car_idCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Car1">
+          <End Role="car" Type="workshopModel.car" Multiplicity="1" />
+          <End Role="order" Type="workshopModel.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="idCar" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="Car_idCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Detail_StandartDetail1">
+          <End Role="standartdetail" Type="workshopModel.standartdetail" Multiplicity="1" />
+          <End Role="detail" Type="workshopModel.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="standartdetail">
+              <PropertyRef Name="idStandartDetail" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="StandartDetail_idStandartDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Detail1">
+          <End Role="detail" Type="workshopModel.detail" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="detail">
+              <PropertyRef Name="idDetail" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Detail_idDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ModelOfCar_MarkOfCar1">
+          <End Role="markofcar" Type="workshopModel.markofcar" Multiplicity="1" />
+          <End Role="modelofcar" Type="workshopModel.modelofcar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="markofcar">
+              <PropertyRef Name="idMarkOfCar" />
+            </Principal>
+            <Dependent Role="modelofcar">
+              <PropertyRef Name="MarkOfCar_idMarkOfCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Operation1">
+          <End Role="operation" Type="workshopModel.operation" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operation">
+              <PropertyRef Name="idOperation" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Operation_idOperation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Order_Worker1">
+          <End Role="worker" Type="workshopModel.worker" Multiplicity="1" />
+          <End Role="order" Type="workshopModel.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Photo_Order1">
+          <End Role="order" Type="workshopModel.order" Multiplicity="1" />
+          <End Role="photo" Type="workshopModel.photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="photo">
+              <PropertyRef Name="Order_idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Order1">
+          <End Role="order" Type="workshopModel.order" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Order_idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Process_Worker1">
+          <End Role="worker" Type="workshopModel.worker" Multiplicity="1" />
+          <End Role="process" Type="workshopModel.process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="process">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkerHasSkill_Skill">
+          <End Role="skill" Type="workshopModel.skill" Multiplicity="1" />
+          <End Role="workerhasskill" Type="workshopModel.workerhasskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skill">
+              <PropertyRef Name="idSkill" />
+            </Principal>
+            <Dependent Role="workerhasskill">
+              <PropertyRef Name="Skill_idSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkerHasSkill_Worker1">
+          <End Role="worker" Type="workshopModel.worker" Multiplicity="1" />
+          <End Role="workerhasskill" Type="workshopModel.workerhasskill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Principal>
+            <Dependent Role="workerhasskill">
+              <PropertyRef Name="Worker_idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="workshopModelStoreContainer" CdmEntityContainer="workshopEntities">
+          <EntitySetMapping Name="car">
+            <EntityTypeMapping TypeName="workshopModel.car">
+              <MappingFragment StoreEntitySet="car">
+                <ScalarProperty Name="idCar" ColumnName="idCar" />
+                <ScalarProperty Name="vincod" ColumnName="vincod" />
+                <ScalarProperty Name="registrNumber" ColumnName="registrNumber" />
+                <ScalarProperty Name="ModelOfCar_idModelOfCar" ColumnName="ModelOfCar_idModelOfCar" />
+                <ScalarProperty Name="ColorOfCar_idColorOfCar" ColumnName="ColorOfCar_idColorOfCar" />
+                <ScalarProperty Name="Client_idClient" ColumnName="Client_idClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="workshopModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="colorofcar">
+            <EntityTypeMapping TypeName="workshopModel.colorofcar">
+              <MappingFragment StoreEntitySet="colorofcar">
+                <ScalarProperty Name="idColorOfCar" ColumnName="idColorOfCar" />
+                <ScalarProperty Name="nameColorOfCar" ColumnName="nameColorOfCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detail">
+            <EntityTypeMapping TypeName="workshopModel.detail">
+              <MappingFragment StoreEntitySet="detail">
+                <ScalarProperty Name="idDetail" ColumnName="idDetail" />
+                <ScalarProperty Name="StandartDetail_idStandartDetail" ColumnName="StandartDetail_idStandartDetail" />
+                <ScalarProperty Name="Car_idCar" ColumnName="Car_idCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="markofcar">
+            <EntityTypeMapping TypeName="workshopModel.markofcar">
+              <MappingFragment StoreEntitySet="markofcar">
+                <ScalarProperty Name="idMarkOfCar" ColumnName="idMarkOfCar" />
+                <ScalarProperty Name="nameMarkOfCar" ColumnName="nameMarkOfCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modelofcar">
+            <EntityTypeMapping TypeName="workshopModel.modelofcar">
+              <MappingFragment StoreEntitySet="modelofcar">
+                <ScalarProperty Name="idModelOfCar" ColumnName="idModelOfCar" />
+                <ScalarProperty Name="nameModelOfCar" ColumnName="nameModelOfCar" />
+                <ScalarProperty Name="MarkOfCar_idMarkOfCar" ColumnName="MarkOfCar_idMarkOfCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operation">
+            <EntityTypeMapping TypeName="workshopModel.operation">
+              <MappingFragment StoreEntitySet="operation">
+                <ScalarProperty Name="idOperation" ColumnName="idOperation" />
+                <ScalarProperty Name="nameOperation" ColumnName="nameOperation" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order">
+            <EntityTypeMapping TypeName="workshopModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Worker_idWorker" ColumnName="Worker_idWorker" />
+                <ScalarProperty Name="Car_idCar" ColumnName="Car_idCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="photo">
+            <EntityTypeMapping TypeName="workshopModel.photo">
+              <MappingFragment StoreEntitySet="photo">
+                <ScalarProperty Name="idPhoto" ColumnName="idPhoto" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="Order_idOrder" ColumnName="Order_idOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="process">
+            <EntityTypeMapping TypeName="workshopModel.process">
+              <MappingFragment StoreEntitySet="process">
+                <ScalarProperty Name="idProcess" ColumnName="idProcess" />
+                <ScalarProperty Name="dateTimeStart" ColumnName="dateTimeStart" />
+                <ScalarProperty Name="dateTimeFinish" ColumnName="dateTimeFinish" />
+                <ScalarProperty Name="dateTimeStartFact" ColumnName="dateTimeStartFact" />
+                <ScalarProperty Name="dateTimeFinishFact" ColumnName="dateTimeFinishFact" />
+                <ScalarProperty Name="Detail_idDetail" ColumnName="Detail_idDetail" />
+                <ScalarProperty Name="Worker_idWorker" ColumnName="Worker_idWorker" />
+                <ScalarProperty Name="Operation_idOperation" ColumnName="Operation_idOperation" />
+                <ScalarProperty Name="Order_idOrder" ColumnName="Order_idOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skill">
+            <EntityTypeMapping TypeName="workshopModel.skill">
+              <MappingFragment StoreEntitySet="skill">
+                <ScalarProperty Name="idSkill" ColumnName="idSkill" />
+                <ScalarProperty Name="nameSkill" ColumnName="nameSkill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="standartdetail">
+            <EntityTypeMapping TypeName="workshopModel.standartdetail">
+              <MappingFragment StoreEntitySet="standartdetail">
+                <ScalarProperty Name="idStandartDetail" ColumnName="idStandartDetail" />
+                <ScalarProperty Name="nameStandartDetail" ColumnName="nameStandartDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="worker">
+            <EntityTypeMapping TypeName="workshopModel.worker">
+              <MappingFragment StoreEntitySet="worker">
+                <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workerhasskill">
+            <EntityTypeMapping TypeName="workshopModel.workerhasskill">
+              <MappingFragment StoreEntitySet="workerhasskill">
+                <ScalarProperty Name="idWorkerHasSkill" ColumnName="idWorkerHasSkill" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="Skill_idSkill" ColumnName="Skill_idSkill" />
+                <ScalarProperty Name="Worker_idWorker" ColumnName="Worker_idWorker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
