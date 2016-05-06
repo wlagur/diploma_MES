@@ -11,9 +11,12 @@ namespace MES_system_third.ViewModel
         public static List<operation> ListOfOperations { get; set; }
         public static List<operation> create()
         {
+            ListOfWorkerHasSkillsClass.create();
             using (var db = new workshopEntities_second())
             {
                 ListOfOperations = db.operation.ToList();
+                foreach (operation o in ListOfOperations)
+                    o.ListWorkers = ListOfWorkerHasSkillsClass.ListOfWorkerHasSkills.Where(e => e.Operation_idOperation == o.idOperation).ToList();
                 return ListOfOperations;
             }
         }

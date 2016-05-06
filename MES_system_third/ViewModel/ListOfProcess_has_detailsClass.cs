@@ -17,6 +17,7 @@ namespace MES_system_third.ViewModel
                 foreach (process_has_detail det in ListOfProcess_has_details)
                 {
                     det.detail = ListOfDetailsClass.ListOfDetails.Where(d => d.idDetail == det.Detail_idDetail).First();
+                    //det.process = ListOfProcessesClass.ListOfProcesses.Where(d => d.idProcess == det.Process_idProcess).First();
                     det.FlagProcess_has_detail = true;
                 }
                 return ListOfProcess_has_details;
@@ -33,7 +34,8 @@ namespace MES_system_third.ViewModel
                     ListOfProcess_has_detailsProcess.Add(new process_has_detail() 
                     { 
                         detail = d,
-                        process = pr,
+                        //process = pr,
+                        Process_idProcess = pr.idProcess,
                         FlagProcess_has_detail = false
                     });
             }

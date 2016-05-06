@@ -128,6 +128,12 @@
       <DependentUpon>Workshop_DB_Model_second.edmx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Command.cs" />
+    <Compile Include="ViewModel\ListOfWorkerHasSkillsClass.cs" />
+    <Compile Include="ViewModel\ListOfClientsClass.cs" />
+    <Compile Include="ViewModel\ListOfCarsClass.cs" />
+    <Compile Include="ViewModel\ListOfColorsClass.cs" />
+    <Compile Include="ViewModel\ListOfModelsClass.cs" />
+    <Compile Include="ViewModel\ListOfMarksClass.cs" />
     <Compile Include="ViewModel\ListOfProcess_has_detailsClass.cs" />
     <Compile Include="ViewModel\ListOfDetailsClass.cs" />
     <Compile Include="ViewModel\ListOfOperationsClass.cs" />

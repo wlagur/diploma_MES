@@ -25,7 +25,12 @@ namespace MES_system_third.Model
         public string lastName { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
-    
+
+        public string FullName
+        {
+            get { return lastName + " " + firstName + " " + middleName; }
+        }
+
         public virtual ICollection<car> car { get; set; }
     }
 }

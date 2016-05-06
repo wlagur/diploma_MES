@@ -17,7 +17,7 @@
             </MenuItem>
         </Menu>
 
-        <TabControl>
+        <TabControl Margin="0,21,0,-21">
             <TabItem Header="Заказы">
                 <Grid>
                     <ListBox Width="150"
@@ -28,27 +28,25 @@
                              DisplayMemberPath="Name"
                              FontSize="9"
                              ItemsSource="{Binding Path=ListOfOrders}"
-                             SelectedItem="{Binding SelectedOrder,
+                             SelectedItem="{Binding Path=NewOrder,
                                                     Mode=TwoWay}" />
-                    <RadioButton Margin="640,160,558,356" IsChecked="{Binding Path=flag, Mode=TwoWay}" />
-                    <RadioButton Margin="640,130,539,386"
-                                 Content="Windows XP"
-                                 GroupName="Os"
-                                 IsChecked="{Binding Path=flag,
-                                                     Mode=TwoWay}" />
-                    <RadioButton Margin="640,100,558,416"
-                                 Content="Windows Vista"
-                                 GroupName="Os" />
-                    <RadioButton Margin="640,70,555,446"
-                                 Content="Windows 7"
-                                 GroupName="Os" />
-                    <DatePickerTextBox Margin="270,10,916,506" RenderTransformOrigin="0.267,0.36" />
+                    <RadioButton Margin="425,70,702,446"
+                                 Content="Новый автомобиль"
+                                 GroupName="new_car"
+                                 IsChecked="{Binding Path=flag_new_car, Mode=TwoWay}" />
+                    <RadioButton Margin="165,70,916,446"
+                                 Content="Существующий автомобиль"
+                                 GroupName="new_car" />
+
+                    <DatePickerTextBox Margin="270,10,916,506" Text="{Binding Path=NewOrder.dateTime, Mode=TwoWay}"/>
+                    <CheckBox Margin="484,16,702,500" IsChecked="{Binding Path=NewOrder.status}" Content="Статус"/>
                     <ComboBox Width="150"
                               Height="25"
                               Margin="270,40,0,0"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Top"
                               DisplayMemberPath="FullName"
+                              SelectedItem="{Binding Path=NewOrder.worker, Mode=TwoWay}"
                               ItemsSource="{Binding Path=ListOfWorkers}" />
                     <Label Width="100"
                            Height="25"
@@ -63,79 +61,192 @@
                            VerticalAlignment="Top"
                            Content="Рабочий"
                            RenderTransformOrigin="0.53,0.56" />
-
-                    <Grid IsEnabled="{Binding Path=flag}">
+                    <Grid IsEnabled="{Binding Path=flag_old_car}">
+                        <ComboBox Width="150"
+                                  Height="25"
+                                  Margin="270,100,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" 
+                                  DisplayMemberPath="registrNumber"
+                                  SelectedItem="{Binding Path=NewOrder.car, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=ListOfCars}"/>
+                        <Label Width="100"
+                               Height="25"
+                               Margin="165,100,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Автомобиль" />
+                    </Grid>
+                    <Grid IsEnabled="{Binding Path=flag_new_car}">
                         <TextBox Width="125"
                                  Height="25"
-                                 Margin="510,10,0,0"
+                                 Margin="510,100,0,0"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
                                  Text="{Binding Path=NewOrder.car.vincod,
                                                 Mode=TwoWay}" />
                         <TextBox Width="125"
                                  Height="25"
-                                 Margin="510,40,0,0"
+                                 Margin="510,130,0,0"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
-                                 Text="{Binding Path=NewOrder.car.vincod,
+                                 Text="{Binding Path=NewOrder.car.registrNumber,
                                                 Mode=TwoWay}" />
-                        <ComboBox Width="125"
-                                  Height="25"
-                                  Margin="510,70,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" />
-                        <ComboBox Width="125"
-                                  Height="25"
-                                  Margin="510,100,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" />
-                        <ComboBox Width="125"
-                                  Height="25"
-                                  Margin="510,130,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" />
                         <ComboBox Width="125"
                                   Height="25"
                                   Margin="510,160,0,0"
                                   HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" />
-                        <Label Width="80"
-                               Height="25"
-                               Margin="425,10,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="VIN-код" />
-                        <Label Width="80"
-                               Height="25"
-                               Margin="425,40,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="Номер" />
-                        <Label Width="80"
-                               Height="25"
-                               Margin="425,70,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="Марка" />
+                                  VerticalAlignment="Top" 
+                                  DisplayMemberPath="nameMarkOfCar"
+                                  SelectedItem="{Binding Path=NewOrder.car.modelofcar.markofcar, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=ListOfMarks}"/>
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,190,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" 
+                                  DisplayMemberPath="nameModelOfCar"
+                                  SelectedItem="{Binding Path=NewOrder.car.modelofcar, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=ListOfModels}"/>
+                        <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="510,220,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" 
+                                  DisplayMemberPath="nameColorOfCar"
+                                  SelectedItem="{Binding Path=NewOrder.car.colorofcar, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=ListOfColors}"/>
+                        
                         <Label Width="80"
                                Height="25"
                                Margin="425,100,0,0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               Content="Модель" />
+                               Content="VIN-код" />
                         <Label Width="80"
                                Height="25"
                                Margin="425,130,0,0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               Content="Цвет" />
+                               Content="Номер" />
                         <Label Width="80"
                                Height="25"
                                Margin="425,160,0,0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
+                               Content="Марка" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,190,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Модель" />
+                        <Label Width="80"
+                               Height="25"
+                               Margin="425,220,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Цвет" />
+
+                        <RadioButton Margin="425,262,702,254"
+                                 Content="Новый клиент"
+                                 GroupName="new_client"
+                                 IsChecked="{Binding Path=flag_new_client, Mode=TwoWay}" />
+                        <RadioButton Margin="165,262,916,254"
+                                 Content="Существующий клиент"
+                                 GroupName="new_client" />
+
+                        <Grid IsEnabled="{Binding Path=flag_old_client}">
+                            <Label Width="80"
+                               Height="25"
+                               Margin="161,291,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
                                Content="Клиент" />
+                            <ComboBox Width="125"
+                                  Height="25"
+                                  Margin="246,291,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" 
+                                  DisplayMemberPath="FullName"
+                                  SelectedItem="{Binding Path=NewOrder.car.client, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=ListOfClients}"/>
+                        </Grid>
+                        <Grid IsEnabled="{Binding Path=flag_new_client}" Margin="0,195,0,-195">
+                            <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,100,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.client.lastName,
+                                                Mode=TwoWay}" />
+                            <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,130,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.client.firstName,
+                                                Mode=TwoWay}" />
+                            <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,160,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.client.middleName,
+                                                Mode=TwoWay}" />
+                            <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,190,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.client.phone,
+                                                Mode=TwoWay}" />
+                            <TextBox Width="125"
+                                 Height="25"
+                                 Margin="510,220,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Text="{Binding Path=NewOrder.car.client.email,
+                                                Mode=TwoWay}" />
+                            <Label Width="80"
+                               Height="25"
+                               Margin="425,100,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Фамилия" />
+                            <Label Width="80"
+                               Height="25"
+                               Margin="425,130,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Имя" />
+                            <Label Width="80"
+                               Height="25"
+                               Margin="425,160,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Отчество" />
+                            <Label Width="80"
+                               Height="25"
+                               Margin="425,190,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="Телефон" />
+                            <Label Width="80"
+                               Height="25"
+                               Margin="425,220,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Content="E-mail" />
+                        </Grid>
                     </Grid>
+                    <Button Width="150"
+                            Height="25"
+                            Margin="165,467,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding AddOrderCommand}"
+                            Content="Добавить заказ" />
                 </Grid>
             </TabItem>
             <TabItem Header="Планирование">
@@ -206,7 +317,7 @@
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
                                                 <ComboBox Width="170"
-                                                          DisplayMemberPath="nameOperation"
+                                                          DisplayMemberPath="Name"
                                                           ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                                                                                 Path=DataContext.ListOfOperations}"
                                                           SelectedItem="{Binding Path=operation,

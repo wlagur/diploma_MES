@@ -33,20 +33,29 @@ namespace MES_system_third.ViewModel
             SaveCommand = new Command(arg => SaveListProcesses());
             CommandColorButtonSave = new Command(arg => ChangeColorButtonSave());
             CommandChangeWokerInProcess = new Command(arg => ChangeWokerInProcess());
+            AddOrderCommand = new Command(arg => AddOrder());
 
             ListOfDetailsClass.create();
-            ListOfOrders = ListOfOrdersClass.create();
+            ListOfMarks = ListOfMarksClass.create();
+            ListOfModels = ListOfModelsClass.create();
+            ListOfColors = ListOfColorsClass.create();
+            ListOfClients = ListOfClientsClass.create();
+            ListOfCars = ListOfCarsClass.create();
             ListOfWorkers = ListOfWorkersClass.create();
             ListOfOperations = ListOfOperationsClass.create();
+            ListOfOrders = ListOfOrdersClass.create();
             AllProcesses = ListOfProcessesClass.CreateAllProcesses();
             NewOrder = new order() 
-            { 
-                car = new car()
+            {
+                dateTime = DateTime.Now,
+                status = false
             };
-            flag = true;
+            flag_new_car = true;
+            flag_new_client = true;
         }
 
-        private order _SelectedOrder;
+        private order _SelectedOrder; 
+        public order _NewOrder;
         private worker _SelectedWorker;
         private List<process> _ListOfProcesses;
         private List<process> _ListOfLoadingWorker;
@@ -57,6 +66,7 @@ namespace MES_system_third.ViewModel
         public ICommand SaveCommand { get; set; }
         public ICommand CommandColorButtonSave { get; set; }
         public ICommand CommandChangeWokerInProcess { get; set; }
+        public ICommand AddOrderCommand { get; set; }
 
         public List<process> AllProcesses { get; set; }
         public List<Rectangle> ListOfRectanglesOrder
@@ -69,7 +79,16 @@ namespace MES_system_third.ViewModel
                 OnPropertyChanged("ListOfRectanglesOrder");
             }
         }
-        public List<order> ListOfOrders { get; set; }
+        private List<order> _ListOfOrders;
+        public List<order> ListOfOrders
+        {
+            get { return _ListOfOrders; }
+            set
+            {
+                _ListOfOrders = value;
+                OnPropertyChanged("ListOfOrders");
+            }
+        }
         public order SelectedOrder
         {
             get { return _SelectedOrder; }
@@ -111,6 +130,23 @@ namespace MES_system_third.ViewModel
         }
         public process SelectedProcess { get; set; }
         public List<operation> ListOfOperations { get; set; }
+        public List<markofcar> ListOfMarks { get; set; }
+        public List<modelofcar> ListOfModels { get; set; }
+        public List<colorofcar> ListOfColors { get; set; }
+        private List<client> _ListOfClients;
+        public List<client> ListOfClients
+        {
+            get { return _ListOfClients; }
+            set
+            {
+                if (_ListOfClients != value)
+                {
+                    _ListOfClients = value; ;
+                    OnPropertyChanged("ListOfClients");
+                }
+            }
+        }
+        public List<car> ListOfCars { get; set; }
         //public List<detail> ListOfDetails { get; set; }
         //public List<detail> ListOfDetailsProcess { get; set; }
         public List<process> ListOfLoadingWorker
@@ -122,19 +158,53 @@ namespace MES_system_third.ViewModel
                 OnPropertyChanged("ListOfLoadingWorker");
             }
         }
-        public order NewOrder { get; set; }
-        private bool _flag;
-        public bool flag
+        public order NewOrder
         {
-            get { return _flag; }
+            get { return _NewOrder; }
             set
             {
-                if (_flag != value)
+                if (_NewOrder != value)
                 {
-                    _flag = value;;
-                    OnPropertyChanged("flag");
+                    _NewOrder = value;
+                    OnPropertyChanged("NewOrder");
                 }
             }
+        }
+        private bool _flag_new_car;
+        public bool flag_new_car
+        {
+            get { return _flag_new_car; }
+            set
+            {
+                if (_flag_new_car != value)
+                {
+                    _flag_new_car = value; ;
+                    OnPropertyChanged("flag_new_car");
+                    OnPropertyChanged("flag_old_car");
+                }
+            }
+        }
+        public bool flag_old_car
+        {
+            get { return !_flag_new_car; }
+        }
+        private bool _flag_new_client;
+        public bool flag_new_client
+        {
+            get { return _flag_new_client; }
+            set
+            {
+                if (_flag_new_client != value)
+                {
+                    _flag_new_client = value; ;
+                    OnPropertyChanged("flag_new_client");
+                    OnPropertyChanged("flag_old_client");
+                }
+            }
+        }
+        public bool flag_old_client
+        {
+            get { return !_flag_new_client; }
         }
 
         public Brush _ColorButtonSave = (Brush)(new BrushConverter()).ConvertFrom("#FF707070");
@@ -190,67 +260,11 @@ namespace MES_system_third.ViewModel
                 ListOfLoadingWorker = ListOfWorkersClass.createListOfLoading(_SelectedWorker, AllProcesses);
             }
         }
-
+        
         public void SaveListProcesses()
         {
             using (var db = new workshopEntities_second())
             {
-                //var _ListProcessesDB = from p in db.process
-                //                       where p.Order_idOrder == SelectedOrder.idOrder
-                //                       select p;
-                //var ListProcessesDB = _ListProcessesDB.ToList();
-                //foreach (process processDB in ListProcessesDB)
-                //{
-                //    try
-                //    {
-                //        var pi = ListOfProcesses.Where(p => p.IdProcess == processDB.idProcess).First();
-                //        processDB.dateTimeStart = pi.DateTimeStart;
-                //        processDB.dateTimeFinish = pi.DateTimeFinish;
-                //        processDB.Operation_idOperation = pi.Operation.idOperation;
-                //        processDB.Worker_idWorker = pi.Worker.idWorker;
-
-                //        var c = SelectedOrder.car.idCar;
-                //        try
-                //        {
-                //            processDB.detail = db.detail.Where(s => s.Car_idCar == c && s.standartdetail.idStandartDetail == pi.StandartDetail.idStandartDetail).First();
-                //        }
-                //        catch (InvalidOperationException)
-                //        {
-                //            var newDetail = new detail() { Car_idCar = c, StandartDetail_idStandartDetail = pi.StandartDetail.idStandartDetail };
-                //            db.detail.Add(newDetail);
-                //            processDB.detail = newDetail;
-                //        }
-                //    }
-                //    catch (InvalidOperationException)
-                //    {
-                //        db.process.Remove(processDB);
-                //    }
-                //}
-                //foreach (ProcessInfo proc in ListOfProcesses)
-                //{
-                //    if (proc.IdProcess < 0)
-                //    {
-                //        var p = new process();
-                //        p.dateTimeStart = proc.DateTimeStart;
-                //        p.dateTimeFinish = proc.DateTimeFinish;
-                //        p.Operation_idOperation = proc.Operation.idOperation;
-                //        p.Worker_idWorker = proc.Worker.idWorker;
-                //        p.Order_idOrder = SelectedOrder.idOrder;
-
-                //        var c = SelectedOrder.car.idCar;
-                //        try
-                //        {
-                //            p.detail = db.detail.Where(s => s.Car_idCar == c && s.standartdetail.idStandartDetail == proc.StandartDetail.idStandartDetail).First();
-                //        }
-                //        catch (InvalidOperationException)
-                //        {
-                //            var newDetail = new detail() { Car_idCar = c, StandartDetail_idStandartDetail = proc.StandartDetail.idStandartDetail };
-                //            db.detail.Add(newDetail);
-                //            p.detail = newDetail;
-                //        }
-                //        db.process.Add(p);
-                //    }
-                //}
                 var AllProcessesDB = db.process.ToList();
                 foreach (process proc in AllProcesses)
                 {
@@ -268,11 +282,12 @@ namespace MES_system_third.ViewModel
                             {
                                 try
                                 {
-                                    var tmp = db.process_has_detail.Where(p => p.Detail_idDetail==phd.detail.idDetail && p.Process_idProcess==phd.process.idProcess).First();
-                                }
+                                    var tmp = db.process_has_detail.Where(p => p.Detail_idDetail==phd.detail.idDetail && p.Process_idProcess==phd.Process_idProcess).First();
+                                    }
                                 catch (InvalidOperationException)
                                 {
-                                    db.process_has_detail.Add(new process_has_detail() { Detail_idDetail = phd.detail.idDetail, Process_idProcess = phd.process.idProcess });
+                                    db.process_has_detail.Add(new process_has_detail() { Detail_idDetail = phd.detail.idDetail, Process_idProcess = phd.Process_idProcess });
+                                    
                                 }
                             }
                         }
@@ -280,12 +295,13 @@ namespace MES_system_third.ViewModel
                         {
                             try
                             {
-                                var tmp = proc.ListProcess_has_detail.Where(p => p.detail.idDetail == phd.Detail_idDetail && p.process.idProcess == phd.Process_idProcess).First();
+                                var tmp = proc.ListProcess_has_detail.Where(p => p.detail.idDetail == phd.Detail_idDetail && p.Process_idProcess == phd.Process_idProcess).First();
                                 if (tmp.FlagProcess_has_detail == false)
                                     db.process_has_detail.Remove(phd);
                             }
                             catch (InvalidOperationException)
                             {
+                                //сюда в принципе не должно входить
                                 db.process_has_detail.Remove(phd);
                             }
                         }
@@ -306,7 +322,7 @@ namespace MES_system_third.ViewModel
                         {
                             if (phd.FlagProcess_has_detail)
                             {
-                                db.process_has_detail.Add(new process_has_detail() { Detail_idDetail = phd.detail.idDetail, Process_idProcess = phd.process.idProcess });
+                                db.process_has_detail.Add(new process_has_detail() { Detail_idDetail = phd.detail.idDetail, Process_idProcess = phd.Process_idProcess });
                             }
                         }
                     }
@@ -337,6 +353,69 @@ namespace MES_system_third.ViewModel
         public void ChangeWokerInProcess()
         {
             ListOfLoadingWorker = ListOfWorkersClass.createListOfLoading(_SelectedWorker, AllProcesses);
+        }
+
+        public void AddOrder()
+        {
+            using (var db = new workshopEntities_second())
+            {
+                if (flag_new_car)
+                {
+                    client Clien;
+                    if (flag_new_client)
+                    {
+                        Clien = new client() 
+                        {
+                            lastName = NewOrder.car.client.lastName,
+                            firstName = NewOrder.car.client.firstName,
+                            middleName = NewOrder.car.client.middleName,
+                            phone = NewOrder.car.client.phone,
+                            email = NewOrder.car.client.email,
+                        };
+                        //Clien.idClient = db.client.Select(w => w.idClient).ToList().Max() + 1;
+                        db.client.Add(Clien);
+                        ListOfClients.Add(Clien);
+                        ListOfClientsClass.ListOfClients.Add(Clien);
+                    }
+                    else 
+                    {
+                        Clien = NewOrder.car.client;
+                    }
+                    car c = new car() 
+                    { 
+                        ColorOfCar_idColorOfCar = NewOrder.car.colorofcar.idColorOfCar,
+                        vincod = NewOrder.car.vincod,
+                        registrNumber = NewOrder.car.registrNumber,
+                        ModelOfCar_idModelOfCar = NewOrder.car.modelofcar.idModelOfCar,
+                        Client_idClient = Clien.idClient
+                    };
+                    //c.idCar = db.car.Select(w => w.idCar).ToList().Max() + 1;
+                    db.car.Add(c);
+                    ListOfCars.Add(c);
+                    ListOfCarsClass.ListOfCars.Add(c);
+                    db.order.Add(new order()
+                    {
+                        Car_idCar = c.idCar,
+                        dateTime = NewOrder.dateTime,
+                        status = NewOrder.status,
+                        Worker_idWorker = NewOrder.worker.idWorker
+                    });
+                }
+                else 
+                {
+                    db.order.Add(new order() 
+                    {
+                        Car_idCar = NewOrder.car.idCar,
+                        dateTime = NewOrder.dateTime,
+                        status = NewOrder.status,
+                        Worker_idWorker = NewOrder.worker.idWorker
+                    });
+                }
+                db.SaveChanges();
+            }
+            //может стоит добавлять сначало в список потом в базу, как с списком автомобилей
+            ListOfOrders = ListOfOrdersClass.create();
+            AllProcesses = ListOfProcessesClass.CreateAllProcesses();
         }
     }
 }
