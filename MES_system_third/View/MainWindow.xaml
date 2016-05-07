@@ -247,6 +247,13 @@
                             VerticalAlignment="Top"
                             Command="{Binding AddOrderCommand}"
                             Content="Добавить заказ" />
+                    <Button Width="150"
+                            Height="25"
+                            Margin="320,467,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding UpdateOrderCommand}"
+                            Content="Изменить заказ" />
                 </Grid>
             </TabItem>
             <TabItem Header="Планирование">
@@ -269,7 +276,8 @@
                             VerticalAlignment="Top"
                             BorderBrush="{Binding ColorButtonSave}"
                             Command="{Binding SaveCommand}"
-                            Content="Сохранить" />
+                            Content="Сохранить" >
+                    </Button>
                     <Button Width="150"
                             Height="25"
                             Margin="10,230,0,0"
@@ -317,14 +325,11 @@
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
                                                 <ComboBox Width="170"
-                                                          DisplayMemberPath="Name"
+                                                          DisplayMemberPath="nameOperation"
                                                           ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                                                                                 Path=DataContext.ListOfOperations}"
                                                           SelectedItem="{Binding Path=operation,
                                                                                  Mode=TwoWay}">
-                                                    <ComboBox.Background>
-                                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
-                                                    </ComboBox.Background>
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
@@ -342,7 +347,11 @@
                                                 <ComboBox Width="150"
                                                           ItemsSource="{Binding Path=ListProcess_has_detail}"
                                                           SelectedItem="{Binding Path=detail,
-                                                                                 Mode=TwoWay}">
+                                                                                 Mode=TwoWay}"
+                                                          Background="{Binding Path=operation.ColorBrush}"
+                                                          IsEditable="True"
+                                                          IsReadOnly="True"
+                                                          Text="{Binding Path=NameDetails, Mode=OneWay}">
                                                     <ComboBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal">
@@ -403,6 +412,33 @@
                                                                                 Path=DataContext.ListOfWorkers}"
                                                           SelectedItem="{Binding Path=worker,
                                                                                  Mode=TwoWay}">
+                                                    <ComboBox.ToolTip>
+                                                        <ToolTip Background="#90004455">
+                                                            <StackPanel>
+                                                                <TextBlock Margin="3" Foreground="White" Text="Подсказка выбора рабочего"/>
+                                                                <ListView ItemsSource="{Binding Path=operation.ListWorkers}" Background="#90004455">
+                                                                    <ListView.View>
+                                                                        <GridView>
+                                                                            <GridViewColumn Header="Рабочий">
+                                                                                <GridViewColumn.CellTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <TextBlock Foreground="White" Text="{Binding Path=worker.FullName}"/>
+                                                                                    </DataTemplate>
+                                                                                </GridViewColumn.CellTemplate>
+                                                                            </GridViewColumn>
+                                                                            <GridViewColumn Header="Уровень">
+                                                                                <GridViewColumn.CellTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <TextBlock Foreground="White" Text="{Binding Path=level}"/>
+                                                                                    </DataTemplate>
+                                                                                </GridViewColumn.CellTemplate>
+                                                                            </GridViewColumn>
+                                                                        </GridView>
+                                                                    </ListView.View>
+                                                                </ListView>
+                                                            </StackPanel>
+                                                        </ToolTip>
+                                                    </ComboBox.ToolTip>
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
@@ -522,8 +558,7 @@
                                                           ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                                                                                 Path=DataContext.ListOfWorkers}"
                                                           SelectedItem="{Binding Path=worker,
-                                                                                 Mode=TwoWay}">
-                                                    <i:Interaction.Triggers>
+                                                                                 Mode=TwoWay}">                                                    <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandColorButtonSave}" />
                                                             <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CommandChangeWokerInProcess}" />

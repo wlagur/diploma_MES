@@ -34,6 +34,7 @@ namespace MES_system_third.ViewModel
             CommandColorButtonSave = new Command(arg => ChangeColorButtonSave());
             CommandChangeWokerInProcess = new Command(arg => ChangeWokerInProcess());
             AddOrderCommand = new Command(arg => AddOrder());
+            UpdateOrderCommand = new Command(arg => UpdateOrder());
 
             ListOfDetailsClass.create();
             ListOfMarks = ListOfMarksClass.create();
@@ -54,8 +55,8 @@ namespace MES_system_third.ViewModel
             flag_new_client = true;
         }
 
-        private order _SelectedOrder; 
-        public order _NewOrder;
+        private order _SelectedOrder;
+        private order _NewOrder;
         private worker _SelectedWorker;
         private List<process> _ListOfProcesses;
         private List<process> _ListOfLoadingWorker;
@@ -67,6 +68,7 @@ namespace MES_system_third.ViewModel
         public ICommand CommandColorButtonSave { get; set; }
         public ICommand CommandChangeWokerInProcess { get; set; }
         public ICommand AddOrderCommand { get; set; }
+        public ICommand UpdateOrderCommand { get; set; }
 
         public List<process> AllProcesses { get; set; }
         public List<Rectangle> ListOfRectanglesOrder
@@ -416,6 +418,69 @@ namespace MES_system_third.ViewModel
             //может стоит добавлять сначало в список потом в базу, как с списком автомобилей
             ListOfOrders = ListOfOrdersClass.create();
             AllProcesses = ListOfProcessesClass.CreateAllProcesses();
+        }
+
+        public void UpdateOrder()
+        {
+            if (ListOfOrders.Contains(NewOrder))
+            {
+                using (var db = new workshopEntities_second())
+                {
+                    var upOrder = db.order.Where(o => o.idOrder == NewOrder.idOrder).First();
+                    if (flag_new_car)
+                    {
+                        client Clien;
+                        if (flag_new_client)
+                        {
+                            Clien = new client()
+                            {
+                                lastName = NewOrder.car.client.lastName,
+                                firstName = NewOrder.car.client.firstName,
+                                middleName = NewOrder.car.client.middleName,
+                                phone = NewOrder.car.client.phone,
+                                email = NewOrder.car.client.email,
+                            };
+                            //Clien.idClient = db.client.Select(w => w.idClient).ToList().Max() + 1;
+                            db.client.Add(Clien);
+                            ListOfClients.Add(Clien);
+                            ListOfClientsClass.ListOfClients.Add(Clien);
+                        }
+                        else
+                        {
+                            Clien = NewOrder.car.client;
+                        }
+                        car c = new car()
+                        {
+                            ColorOfCar_idColorOfCar = NewOrder.car.colorofcar.idColorOfCar,
+                            vincod = NewOrder.car.vincod,
+                            registrNumber = NewOrder.car.registrNumber,
+                            ModelOfCar_idModelOfCar = NewOrder.car.modelofcar.idModelOfCar,
+                            Client_idClient = Clien.idClient
+                        };
+                        //c.idCar = db.car.Select(w => w.idCar).ToList().Max() + 1;
+                        db.car.Add(c);
+                        ListOfCars.Add(c);
+                        ListOfCarsClass.ListOfCars.Add(c);
+
+                        upOrder.Car_idCar = c.idCar;
+                        upOrder.dateTime = NewOrder.dateTime;
+                        upOrder.status = NewOrder.status;
+                        upOrder.Worker_idWorker = NewOrder.worker.idWorker;
+
+                    }
+                    else
+                    {
+                        upOrder.Car_idCar = NewOrder.car.idCar;
+                        upOrder.dateTime = NewOrder.dateTime;
+                        upOrder.status = NewOrder.status;
+                        upOrder.Worker_idWorker = NewOrder.worker.idWorker;
+                    }
+                    db.SaveChanges();
+                }
+                //может стоит добавлять сначало в список потом в базу, как с списком автомобилей
+                ListOfOrders = ListOfOrdersClass.create();
+                AllProcesses = ListOfProcessesClass.CreateAllProcesses();
+            }
         }
     }
 }

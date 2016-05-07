@@ -29,6 +29,19 @@ namespace MES_system_third.Model
         public int Order_idOrder { get; set; }
 
         public List<process_has_detail> ListProcess_has_detail { get; set; }
+        public string NameDetails 
+        {
+            get 
+            {
+                string str = "";
+                foreach (process_has_detail p in ListProcess_has_detail)
+                    if (p.FlagProcess_has_detail)
+                        str += ", " + p.detail.standartdetail.nameStandartDetail;
+                if (str.Length > 2)
+                    str = str.Substring(2);
+                return str;
+            }
+        }
     
         public virtual operation operation { get; set; }
         public virtual order order { get; set; }

@@ -27,10 +27,10 @@ namespace MES_system_third.Model
         public string Color { get; set; }
 
         public List<workerhasskill> ListWorkers { get; set; }
-        public string Name 
+        /*public string Tip 
         {
             get { return nameOperation + " " + ListWorkers[0].worker.FullName + " " + ListWorkers[0].level; }
-        }
+        }*/
         public Brush ColorBrush
         {
             get { return (Brush)(new BrushConverter()).ConvertFrom(Color); }
